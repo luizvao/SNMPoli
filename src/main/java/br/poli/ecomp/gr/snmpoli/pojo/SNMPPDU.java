@@ -8,6 +8,15 @@ import br.poli.ecomp.gr.snmpoli.util.ByteArrayBuilder;
 
 public class SNMPPDU implements Encodable {
 
+	public interface ERROR_STATUS {
+		public static final int NO_ERROR = 0;
+		public static final int TOO_BIG = 1;
+		public static final int NO_SUCH_NAME = 2;
+		public static final int BAD_VALUE = 3;
+		public static final int READ_ONLY = 4;
+		public static final int GENERAL_ERROR = 5;
+	}
+
 	private int requestId;
 	private int errorStatus;
 	private int errorIndex;
@@ -19,6 +28,7 @@ public class SNMPPDU implements Encodable {
 			builder.writeInt(requestId)
 			.writeInt(errorStatus)
 			.writeInt(errorIndex);
+			
 			for (VarBind varBind : varbinds) {
 				builder.writeBytes(varBind.encode());
 			}
