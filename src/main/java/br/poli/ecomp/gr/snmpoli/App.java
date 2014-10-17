@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.poli.ecomp.gr.snmpoli.constant.DataType;
 import br.poli.ecomp.gr.snmpoli.network.RequestManager;
 import br.poli.ecomp.gr.snmpoli.pojo.SNMPMessage;
 import br.poli.ecomp.gr.snmpoli.pojo.SNMPPDU;
@@ -35,6 +36,7 @@ public class App {
 			snmpPDU.setErrorStatus(SNMPPDU.ERROR_STATUS.NO_ERROR);
 			snmpPDU.setRequestId(4);
 			snmpPDU.setVarbinds(varBinds);
+			snmpPDU.setType(DataType.GET_REQUEST_PDU);
 
 			SNMPMessage message = new SNMPMessage();
 			message.setVersion(1);

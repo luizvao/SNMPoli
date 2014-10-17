@@ -2,6 +2,7 @@ package br.poli.ecomp.gr.snmpoli.pojo;
 
 import java.io.IOException;
 
+import br.poli.ecomp.gr.snmpoli.constant.DataType;
 import br.poli.ecomp.gr.snmpoli.interfaces.Encodable;
 import br.poli.ecomp.gr.snmpoli.util.ByteArrayBuilder;
 
@@ -14,8 +15,19 @@ public class SNMPMessage implements Encodable {
 	public byte[] encode() {
 		ByteArrayBuilder builder = new ByteArrayBuilder();
 		try {
-			builder.writeInt(version)
+			int length = 30; // FIXME
+			
+			builder.writeInt(DataType.SEQUENCE)
+			.writeInt(length)
+			
+			.writeInt(DataType.INTEGER)
+			.writeInt(1)
+			.writeInt(version)
+			
+			.writeInt(DataType.OCTET_STRING)
+			.writeInt(community.length)
 			.writeBytes(community)
+			
 			.writeBytes(snmpPDU.encode());
 		} catch (IOException e) {
 			e.printStackTrace();

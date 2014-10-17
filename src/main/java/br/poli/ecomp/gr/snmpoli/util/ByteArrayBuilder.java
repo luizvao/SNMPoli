@@ -3,6 +3,8 @@ package br.poli.ecomp.gr.snmpoli.util;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 
 public class ByteArrayBuilder {
 	
@@ -41,6 +43,15 @@ public class ByteArrayBuilder {
 	
 	public ByteArrayBuilder writeBytes(char[] bts) throws IOException {
 		return writeBytes(new String(bts));
+	}
+	
+	public ByteArrayBuilder writeInts(int[] ints) throws IOException {
+		ByteBuffer byteBuffer = ByteBuffer.allocate(ints.length * 4);        
+        IntBuffer intBuffer = byteBuffer.asIntBuffer();
+        intBuffer.put(ints);
+
+        byte[] array = byteBuffer.array();
+		return writeBytes(array);
 	}
 	
 	public byte[] getBytes() {
