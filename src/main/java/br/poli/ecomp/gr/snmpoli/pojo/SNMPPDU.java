@@ -1,8 +1,10 @@
 package br.poli.ecomp.gr.snmpoli.pojo;
 
+import java.io.IOException;
 import java.util.List;
 
 import br.poli.ecomp.gr.snmpoli.interfaces.Encodable;
+import br.poli.ecomp.gr.snmpoli.util.ByteArrayBuilder;
 
 public class SNMPPDU implements Encodable {
 
@@ -12,8 +14,18 @@ public class SNMPPDU implements Encodable {
 	private List<VarBind> varbinds;
 
 	public byte[] encode() {
-		// TODO Auto-generated method stub
-		return null;
+		ByteArrayBuilder builder = new ByteArrayBuilder();
+		try {
+			builder.writeInt(requestId)
+			.writeInt(errorStatus)
+			.writeInt(errorIndex);
+			for (VarBind varBind : varbinds) {
+				builder.writeBytes(varBind.encode());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return builder.getBytes();
 	}
 
 	public int getRequestId() {

@@ -1,6 +1,9 @@
 package br.poli.ecomp.gr.snmpoli.pojo;
 
+import java.io.IOException;
+
 import br.poli.ecomp.gr.snmpoli.interfaces.Encodable;
+import br.poli.ecomp.gr.snmpoli.util.ByteArrayBuilder;
 
 public class SNMPMessage implements Encodable {
 
@@ -9,8 +12,15 @@ public class SNMPMessage implements Encodable {
 	private SNMPPDU snmpPDU;
 
 	public byte[] encode() {
-		// TODO Auto-generated method stub
-		return null;
+		ByteArrayBuilder builder = new ByteArrayBuilder();
+		try {
+			builder.writeInt(version)
+			.writeBytes(community)
+			.writeBytes(snmpPDU.encode());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return builder.getBytes();
 	}
 
 	public void setVersion(int version) {
