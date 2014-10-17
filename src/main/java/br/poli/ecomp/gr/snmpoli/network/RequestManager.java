@@ -16,7 +16,7 @@ public class RequestManager {
 	private String hostname;
 	private int port;
 	private Socket socket;
-	
+
 	public RequestManager(String hostname, int port) {
 		this.hostname = hostname;
 		this.port = port;
@@ -35,11 +35,11 @@ public class RequestManager {
 		osw.flush();
 	}
 
-	public String listen() throws IOException {
+	public String getResponse() throws IOException {
 		BufferedInputStream bis = new BufferedInputStream(
 				socket.getInputStream());
 		InputStreamReader isr = new InputStreamReader(bis);
-		
+
 		StringBuffer instr = new StringBuffer();
 		int c;
 		while ((c = isr.read()) != 13) {
@@ -47,7 +47,7 @@ public class RequestManager {
 		}
 		return instr.toString();
 	}
-	
+
 	public void close() throws IOException {
 		socket.close();
 	}

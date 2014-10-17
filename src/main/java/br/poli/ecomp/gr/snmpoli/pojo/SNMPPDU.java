@@ -10,7 +10,7 @@ public class SNMPPDU implements Encodable {
 	private int errorStatus;
 	private int errorIndex;
 	private List<VarBind> varbinds;
-		
+
 	public byte[] encode() {
 		// TODO Auto-generated method stub
 		return null;

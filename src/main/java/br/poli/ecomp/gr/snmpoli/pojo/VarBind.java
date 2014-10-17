@@ -3,7 +3,7 @@ package br.poli.ecomp.gr.snmpoli.pojo;
 import br.poli.ecomp.gr.snmpoli.interfaces.Encodable;
 
 public class VarBind implements Encodable {
-	
+
 	private int[] objectId;
 	private int[] value;
 

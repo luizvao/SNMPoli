@@ -3,11 +3,11 @@ package br.poli.ecomp.gr.snmpoli.pojo;
 import br.poli.ecomp.gr.snmpoli.interfaces.Encodable;
 
 public class SNMPMessage implements Encodable {
-	
+
 	private int version;
 	private char[] community;
 	private SNMPPDU snmpPDU;
-	
+
 	public byte[] encode() {
 		// TODO Auto-generated method stub
 		return null;
