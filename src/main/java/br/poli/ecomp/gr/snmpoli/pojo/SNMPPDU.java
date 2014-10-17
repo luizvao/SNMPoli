@@ -3,6 +3,7 @@ package br.poli.ecomp.gr.snmpoli.pojo;
 import java.io.IOException;
 import java.util.List;
 
+import br.poli.ecomp.gr.snmpoli.constant.DataType;
 import br.poli.ecomp.gr.snmpoli.interfaces.Encodable;
 import br.poli.ecomp.gr.snmpoli.util.ByteArrayBuilder;
 
@@ -21,14 +22,29 @@ public class SNMPPDU implements Encodable {
 	private int errorStatus;
 	private int errorIndex;
 	private List<VarBind> varbinds;
+	private int type;
+	private int length;
 
 	public byte[] encode() {
 		ByteArrayBuilder builder = new ByteArrayBuilder();
 		try {
-			builder.writeInt(requestId)
-			.writeInt(errorStatus)
-			.writeInt(errorIndex);
+			builder.writeInt(type)
+			.writeInt(length)
 			
+			.writeInt(DataType.INTEGER)
+			.writeInt(1)
+			.writeInt(requestId)
+			
+			.writeInt(DataType.INTEGER)
+			.writeInt(1)
+			.writeInt(errorStatus)
+			
+			.writeInt(DataType.INTEGER)
+			.writeInt(1)
+			.writeInt(errorIndex)
+			
+			.writeInt(DataType.SEQUENCE)
+			.writeInt(calculateLength(varbinds));
 			for (VarBind varBind : varbinds) {
 				builder.writeBytes(varBind.encode());
 			}
@@ -36,6 +52,11 @@ public class SNMPPDU implements Encodable {
 			e.printStackTrace();
 		}
 		return builder.getBytes();
+	}
+
+	private int calculateLength(List<VarBind> varbinds2) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	public int getRequestId() {
@@ -68,6 +89,19 @@ public class SNMPPDU implements Encodable {
 
 	public void setVarbinds(List<VarBind> varbinds) {
 		this.varbinds = varbinds;
+	}
+
+	public int getType() {
+		return this.type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public int getSize() {
+		// FIXME atualizar sempre que fizer um set
+		return this.length;
 	}
 
 }
